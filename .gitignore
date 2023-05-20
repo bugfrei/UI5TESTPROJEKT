@@ -1,0 +1,22 @@
+#SUP{ "version": " V1.14.0", "hash": "90a9052e465ee7930d3a0ff616283ef0fe7524b90614849153e40186c5d46474" }
+*.log
+*.zip
+**/gen
+**/dist
+**/mta_archives
+
+# auto generated wildcard
+db/.env
+
+# added by cds deploy
+default-env.json
+    /node_modules/
+package-lock.json
+node_modules/
+node_modules   
+
+# added by cds deploy
+default-env.json
+
+# added by cds bind
+.cdsrc-private.json

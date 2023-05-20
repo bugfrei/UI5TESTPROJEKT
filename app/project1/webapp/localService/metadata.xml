@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="mainService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Abteilungen" EntityType="mainService.Abteilungen"/>
+                <EntitySet Name="MaxAbteilungID" EntityType="mainService.MaxAbteilungID"/>
+                <EntitySet Name="Personal" EntityType="mainService.Personal">
+                    <NavigationPropertyBinding Path="toAbteilung" Target="Abteilungen"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Abteilungen">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="max" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="MaxAbteilungID">
+                <Property Name="maxID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Personal">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="secLevel" Type="Edm.Int32"/>
+                <Property Name="firstName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="lastName" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="toAbteilung" Type="mainService.Abteilungen">
+                    <ReferentialConstraint Property="toAbteilung_id" ReferencedProperty="id"/>
+                </NavigationProperty>
+                <Property Name="toAbteilung_id" Type="Edm.Int32"/>
+            </EntityType>
+            <Annotations Target="mainService.MaxAbteilungID/maxID">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
